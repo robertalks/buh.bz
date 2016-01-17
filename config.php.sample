@@ -1,0 +1,17 @@
+<?php
+define('SITE_NAME', 'short.url');
+define('SITE_IMAGE', 'img/logo.png');
+define('SITE_URL', 'http://short.url');
+define('DEFAULT_UUID', 'a7a11f3c-b38e-11e5-929c-180373dbc331');
+define('GSB_API_KEY', '');
+
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', 'pass');
+define('DB_NAME', 'mydb');
+define('DB_PREFIX', 'buh');
+define('DB_URLS_TABLE', DB_PREFIX.'urls');
+define('DB_SPAM_TABLE', DB_PREFIX.'spam');
+
+define('ALLOWED_PROTOCOLS', 'http|https|ftp|ftps|mms|rtmp|rtmpt|e2dk');
+define('NOT_ALLOWED_HOSTS', 'bit\.ly|goo\.gl|tiny\.cc|buh\.bz|tinyurl\.com|j\.mp|tiny\.cc|ity\.im|ow\.ly|ur1\.ca|is\.gd|quickinternetprofits\.net|mycashtracker\.com|click2sell\.eu|t\.co');

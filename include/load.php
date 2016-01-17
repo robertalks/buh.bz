@@ -1,0 +1,19 @@
+<?php
+if (file_exists(dirname(dirname(__FILE__)) . '/config.php'))
+	define('CONFIGFILE', str_replace( '\\', '/', dirname(dirname(__FILE__))) . '/config.php');
+else
+	die('Config file not found');
+
+require_once(CONFIGFILE);
+date_default_timezone_set('UTC');
+
+global $mydb;
+
+require_once('errors.php');
+require_once('utils.php');
+require_once('db.php');
+require_once('spam.php');
+require_once('core.php');
+
+load_mysql();
+?>
