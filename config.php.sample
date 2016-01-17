@@ -1,7 +1,7 @@
 <?php
 define('SITE_NAME', 'short.url');
 define('SITE_IMAGE', 'img/logo.png');
-define('SITE_URL', 'http://short.url');
+define('SITE_URL', 'http://short.url/');
 define('DEFAULT_UUID', 'a7a11f3c-b38e-11e5-929c-180373dbc331');
 define('GSB_API_KEY', '');
 
