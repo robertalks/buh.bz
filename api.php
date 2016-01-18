@@ -37,9 +37,9 @@ $entered_alias = $code;
 if (empty($url)) {
         $error = ERR_INVALID_REQUEST;
         goto out;
-} else
-	$url = polish_url($url);
+}
 
+$url = polish_url($url);
 $protocol = @parse_url($url, PHP_URL_SCHEME);
 if ($protocol == null)
 	$url = 'http://'.$url;
