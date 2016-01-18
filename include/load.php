@@ -1,7 +1,7 @@
 <?php
-if (file_exists(dirname(dirname(__FILE__)) . '/config.php'))
-	define('CONFIGFILE', str_replace( '\\', '/', dirname(dirname(__FILE__))) . '/config.php');
-else
+
+define('CONFIGFILE', str_replace( '\\', '/', $_SERVER['DOCUMENT_ROOT']) . '/config.php');
+if (!file_exists(CONFIGFILE))
 	die('Config file not found');
 
 require_once(CONFIGFILE);
@@ -16,4 +16,4 @@ require_once('spam.php');
 require_once('core.php');
 
 load_mysql();
-?>
+
