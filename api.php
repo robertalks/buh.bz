@@ -18,7 +18,7 @@ if (isset($_POST['url'])) {
 }
 
 if (isset($urlArray['url']))
-	$url = escape(trim($urlArray['url']));
+	$url = $urlArray['url'];
 
 if (isset($urlArray['alias']))
 	$code = escape(trim($urlArray['alias']));
@@ -26,10 +26,9 @@ if (isset($urlArray['alias']))
 foreach ($urlArray as $index => $value) {
 	if ($index == "url" || $index == "alias")
 		continue;
+
 	if ($value)
 		$url.= "&".$index."=".$value;
-
-	$url = escape($url);
 }
 
 $entered_url = $url;
@@ -38,9 +37,8 @@ $entered_alias = $code;
 if (empty($url)) {
         $error = ERR_INVALID_REQUEST;
         goto out;
-}
-
-$url = str_replace(" ", "+", $url);
+} else
+	$url = polish_url($url);
 
 $protocol = @parse_url($url, PHP_URL_SCHEME);
 if ($protocol == null)

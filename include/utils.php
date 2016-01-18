@@ -8,6 +8,19 @@ function str_encode($str) {
 	return str_replace('&', '\\x26', $str);
 }
 
+function polish_url($url) {
+	if (empty($url))
+		return null;
+
+	$URL = trim($url);
+	$URL = str_replace('"', '\\x22', $URL);
+	$URL = str_replace('&', '\\x26', $URL); 
+	$URL = str_replace(" ", "+", $URL);
+	$URL = addslashes($URL);
+
+	return $URL;
+}
+
 function get_url_data($url) {
 	if (empty($url))
 		return false;
