@@ -14,7 +14,8 @@ function polish_url($url) {
 
 	$URL = trim($url);
 	$URL = str_replace('"', '\\x22', $URL);
-	$URL = str_replace('&', '\\x26', $URL); 
+	$URL = str_replace('&', '\\x26', $URL);
+	$URL = str_replace("'", '\\x27', $URL);
 	$URL = str_replace(" ", "+", $URL);
 	$URL = addslashes($URL);
 

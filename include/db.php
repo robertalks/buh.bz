@@ -47,7 +47,6 @@ function insert_url($code, $url, $ip , $uuid) {
 	if ($uuid == '')
 		$uuid = DEFAULT_UUID;
 
-	$url = mysql_real_escape_string($url);
 	$result = $mydb->query("INSERT INTO `$table` (code, url, clicks, ip, date, uuid) VALUES ('$code', '$url', 0, '$ip', NOW(), '$uuid')");
 
 	return $result;
@@ -173,7 +172,6 @@ function block_url($code, $url, $reason, $ip) {
 	$table = DB_SPAM_TABLE;
 	$result = false;
 
-	$url = mysql_real_escape_string($url);
 	$result = $mydb->query("INSERT INTO `$table` (code, url, reason, ip, date) VALUES ('$code', '$url', '$reason', '$ip', NOW())");
 
 	return false;	
