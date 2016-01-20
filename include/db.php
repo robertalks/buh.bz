@@ -22,7 +22,7 @@ function load_mysql_driver() {
 	global $mydb;
 
 	if (!class_exists($class, false)) {
-		die('buh.bz requires the mysql, mysqli or pdo_mysql PHP extension. No extension found.');
+		die(SITE_NAME .' requires the mysql, mysqli or pdo_mysql PHP extension. No extension found.');
 	}
 
 	$mydb = new $class(DB_USER, DB_PASS, DB_NAME, DB_HOST);
