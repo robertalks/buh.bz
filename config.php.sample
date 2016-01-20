@@ -9,7 +9,7 @@ define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', 'pass');
 define('DB_NAME', 'mydb');
-define('DB_PREFIX', 'buh');
+define('DB_PREFIX', 'buh_');
 define('DB_URLS_TABLE', DB_PREFIX.'urls');
 define('DB_SPAM_TABLE', DB_PREFIX.'spam');
 
