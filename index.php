@@ -51,7 +51,7 @@ Top 5 visited links:<ol>
 <?php
 $top5 = top_clicks();
 foreach ((array)$top5 as $res) {
-    echo '<li><a href="'.SITE_URL.$res->code.'" target="_blank">'.SITE_URL.$res->code.'</a> got '.$res->clicks.' clicks.</li>';
+    echo '<li><a href="'.SITE_URL.'"/"'.$res->code.'" target="_blank">'.SITE_URL.'"/"'.$res->code.'</a> got '.$res->clicks.' clicks.</li>';
 }
 ?>
 </ol></div><br /><br />
