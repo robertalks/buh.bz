@@ -38,7 +38,7 @@ document.getElementById('alias').style.display = "none";
 <div id="result">
 <?php if (isset($_GET['rc'])) {
 	if ($_GET['rc'] === '0' && isset($_GET['code'])) {
-		echo '<div id="success"><div>Your URL was successfully shortened.</div><br/><input type="text" value="'.SITE_URL.$_GET['code'].'" readonly="readonly"/> <a href="'.SITE_URL.$_GET['code'].'" target="_blank"><img src="img/external.png" alt=""/></a> <a href="qr.php?alias='.$_GET['code'].'" target="_blank">QR code</a>';
+		echo '<div id="success"><div>Your URL was successfully shortened.</div><br/><input type="text" value="'.SITE_URL.'/'.$_GET['code'].'" readonly="readonly"/> <a href="'.SITE_URL.'/'.$_GET['code'].'" target="_blank"><img src="img/external.png" alt=""/></a> <a href="qr.php?alias='.$_GET['code'].'" target="_blank">QR code</a>';
 	} else if ($_GET['rc'] < 9) {
 		echo '<div id="failure"><div>'.$errors[$_GET['rc']].'</div></div>';
     }
