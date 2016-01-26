@@ -92,6 +92,7 @@ switch ($request_type) {
 	case 'mobile':
 	case 'noscript':
 		$redirect = 'index.php?rc='.$error.'&url='.$entered_url.'&alias='.$entered_alias;
+		$redirect = rtrim($redirect);
 		if ($error == 0)
 			header('Location: '.$redirect.'&code='.$code);
 		else
