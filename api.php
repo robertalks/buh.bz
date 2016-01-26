@@ -80,14 +80,14 @@ switch ($request_type) {
 		header('Content-type: text/html; charset=utf-8');
 		echo $error;
 		if ($error == 0)
-			echo SITE_URL.$code;
+			echo SITE_URL.'/'.$code;
 		else
 			echo $errors[$error];
 		break;
 	case 'api':
 		header('Content-type: text/html; charset=utf-8');
 		if ($error == 0)
-			echo SITE_URL.$code;
+			echo SITE_URL.'/'.$code;
 		break;
 	case 'mobile':
 	case 'noscript':
