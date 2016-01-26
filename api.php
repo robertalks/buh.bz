@@ -31,8 +31,8 @@ foreach ($urlArray as $index => $value) {
 		$url.= "&".$index."=".$value;
 }
 
-$entered_url = $url;
-$entered_alias = $code;
+$entered_url = rtrim($url));
+$entered_alias = rtrim($code);
 
 if (empty($url)) {
         $error = ERR_INVALID_REQUEST;
