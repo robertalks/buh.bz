@@ -31,7 +31,7 @@ foreach ($urlArray as $index => $value) {
 		$url.= "&".$index."=".$value;
 }
 
-$entered_url = rtrim($url));
+$entered_url = rtrim($url);
 $entered_alias = rtrim($code);
 
 if (empty($url)) {
