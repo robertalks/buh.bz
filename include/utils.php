@@ -13,6 +13,7 @@ function polish_url($url) {
 		return null;
 
 	$URL = trim($url);
+	$URL = rtrim($URL);
 	$URL = str_replace('"', '\\x22', $URL);
 	$URL = str_replace('&', '\\x26', $URL);
 	$URL = str_replace("'", '\\x27', $URL);
