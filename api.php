@@ -7,6 +7,7 @@ $code = '';
 $entered_alias = '';
 $request_type = '';
 $error = 0;
+$redirect = SITE_URL.'/index.php';
 
 $urlArray = array();
 if (isset($_POST['url'])) {
@@ -91,7 +92,7 @@ switch ($request_type) {
 		break;
 	case 'mobile':
 	case 'noscript':
-		$redirect = 'index.php?rc='.$error.'&url='.$entered_url.'&alias='.$entered_alias;
+		$redirect = $redirect.'?rc='.$error.'&url='.$entered_url.'&alias='.$entered_alias;
 		$redirect = rtrim($redirect);
 		if ($error == 0)
 			header('Location: '.$redirect.'&code='.$code);
