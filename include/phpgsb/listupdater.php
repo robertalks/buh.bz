@@ -7,7 +7,7 @@
  *
  */
 
-if (!class_exists(phpGSB, false))
+if (!class_exists('phpGSB', false))
 	require_once('phpgsb.class.php');
 
 define('CONFIGFILE', str_replace( '\\', '/', $_SERVER['DOCUMENT_ROOT']) . '/config.php');

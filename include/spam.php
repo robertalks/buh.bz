@@ -1,6 +1,6 @@
 <?php
 
-if (!class_exists(phpGSB, false))
+if (!class_exists('phpGSB', false))
         require_once('phpgsb/phpgsb.class.php');
 
 function check_with_phishtank($url) {
