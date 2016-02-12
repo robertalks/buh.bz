@@ -62,7 +62,7 @@ if (strlen($code) == 0) {
 	} else
 		$code = $codes{0}->code;
 } else {
-	if (empty($codes)) {
+	if (!empty($codes)) {
 		if (in_array($code, $codes))
 			goto out;
 	}
