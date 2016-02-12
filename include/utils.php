@@ -63,6 +63,7 @@ function prettify_numbers($n = 0) {
 
 function int2code($id, $make_rand = false) {
 	$chars = "123456789bcdfghjkmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ";
+	$chars = str_split($chars);
         $len = strlen($chars);
 	$code = '';
 
@@ -75,9 +76,8 @@ function int2code($id, $make_rand = false) {
 		$code = $chars[fmod($num, $len)] . $code;
 		$num = floor($num / $len);
         }
-        $code = $chars[intval($num)] . $code;
 
-	return $code;
+	return $chars[intval($num)] . $code;
 }
 
 function get_IP() {
