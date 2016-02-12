@@ -29,7 +29,7 @@ function html_obfuscate($text) {
 document.write('<img id="switch-img" src="img/alias-show.png" alt="" onclick="toggleAlias()"/>');
 //]]>
 </script></div><br />
-<div id="alias">Custom alias (optional): <?php echo SITE_URL; ?> <input type="text" id="input-alias" name="alias"<?php if (!empty($_GET['alias'])) echo ' value="'.$_GET['alias'].'"'; ?>/>
+<div id="alias">Custom alias (optional): <?php echo SITE_URL.'/'; ?> <input type="text" id="input-alias" name="alias"<?php if (!empty($_GET['alias'])) echo ' value="'.$_GET['alias'].'"'; ?>/>
 <br/><span class="small">Alias may contain both uppercase and lowercase letters, numbers, dashes and underscores.</span><script type="text/javascript">
 //<![CDATA[
 document.getElementById('alias').style.display = "none";
