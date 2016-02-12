@@ -63,7 +63,6 @@ function prettify_numbers($n = 0) {
 
 function int2code($id, $make_rand = false) {
 	$chars = "123456789bcdfghjkmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ";
-	$chars = str_split($chars);
         $len = strlen($chars);
 	$code = '';
 
@@ -72,6 +71,7 @@ function int2code($id, $make_rand = false) {
 	else
 		$num = intval($id);
 
+	$chars = str_split($chars);
         while ($num > $len - 1) {
 		$code = $chars[fmod($num, $len)] . $code;
 		$num = floor($num / $len);
