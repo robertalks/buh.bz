@@ -13,9 +13,9 @@ if (preg_match("/^[a-zA-Z0-9]+$/", $code) && (code_exists($code))) {
 	echo "URL: " .$url."<br/>";
 
         if (lookup_url_is_spam($url))
-                echo "Code ".$code." is spam<br/>";
+                echo "SPAM: yes<br/>";
         else
-                echo "Code ".$code." not spam<br/>";
+                echo "SPAM: no<br/>";
 } else
 	header('Location: '.SITE_URL);
 
