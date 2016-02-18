@@ -123,48 +123,70 @@ function check_url_badness($url) {
 
 function add_bad_url_to_db($url) {
 	$reason = null;
+	$ip = null;
+	$codes = null;
+	$code = 'none';
 
 	if (empty($url))
 		return false;
 
 	$reason = lookup_url_in_db($url);
-	if ($reason)
-		return $reason;
+	if (!empty($reason))
+		return true;
 
 	$reason = check_url_badness($url);
-	if ($reason) {
-		$code = 'none';
-		$codes = get_codes_for_url($url);
-		if ($codes)
-			$code = $codes{0}->code;
-		$ip = get_IP();
-		if (block_url($code, $url, $reason, $ip))
-			return true;
-	}
+	if (empty($reason))
+		return false;
+
+	$codes = get_codes_for_url($url);
+	if (!empty($codes))
+		$code = $codes{0}->code;
+
+	$ip = get_IP();
+	if (block_url($code, $url, $reason, $ip))
+		return true;
 
 	return false;
 }
 
 function add_bad_code_to_db($code) {
 	$reason = null;
+	$ip = null;
+	$url = null;
 
 	if (empty($code))
 		return false;
 
 	$url = get_url($code);
-	if ($url == null)
+	if (empty($url))
 		return false;
 
 	$reason = lookup_url_in_db($url);
-	if ($reason)
-		return $reason;
+	if (!empty($reason))
+		return true;
 
 	$reason = check_url_badness($url);
-	if ($reason) {
-		$ip = get_IP();
-		if (block_url($code, $url, $reason, $ip))
-			return true;
-	}
+	if (empty($reason))
+		return false;
+
+	$ip = get_IP();
+	if (block_url($code, $url, $reason, $ip))
+		return true;
+
+	return false;
+}
+
+function blacklist_code($code, $reason = 'unwanted') {
+	if (empty($code))
+		return false;
+
+	$url = get_url($code);
+	if (empty($url))
+		return false;
+
+	$ip = get_IP();
+	if (block_url($code, $url, $reason, $ip))
+		return true;
 
 	return false;
 }

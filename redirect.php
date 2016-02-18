@@ -3,7 +3,11 @@ require_once('include/load.php');
 
 if (!empty($_GET['alias'])) {
 	$code = escape(trim($_GET['alias']));
-	if (preg_match("/^[a-zA-Z0-9]+$/", $code) && ($url = get_url($code)) !== null) {
+	if (preg_match("/^[a-zA-Z0-9]+$/", $code) && (code_exists($code))) {
+		$url = get_url($code);
+		if (empty($url))
+			goto out;
+
 		if (lookup_url_in_db($url))
 			goto out;
 
