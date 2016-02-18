@@ -174,7 +174,7 @@ function block_url($code, $url, $reason, $ip) {
 
 	$result = $mydb->query("INSERT INTO `$table` (code, url, reason, ip, date) VALUES ('$code', '$url', '$reason', '$ip', NOW())");
 
-	return false;	
+	return $result;
 }
 
 function unblock_url($url) {
