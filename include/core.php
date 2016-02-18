@@ -56,7 +56,7 @@ function process_url($url) {
 	} else
 		return ERR_INVALID_REQUEST;
 	
-	if (lookup_url_in_db($url))
+	if (lookup_url_is_spam($url))
 		return ERR_URL_IS_SPAM;
 
 	if (check4spam($url)) {
@@ -84,7 +84,7 @@ function process_code($code) {
 	} else
                 return -1;
 
-	if (lookup_url_in_db($url))
+	if (lookup_url_is_spam($url))
 		return 1;
 
         if (check4spam($url)) {

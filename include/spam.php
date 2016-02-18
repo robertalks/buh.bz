@@ -130,8 +130,7 @@ function add_bad_url_to_db($url) {
 	if (empty($url))
 		return false;
 
-	$reason = lookup_url_in_db($url);
-	if (!empty($reason))
+	if (lookup_url_is_spam($url))
 		return true;
 
 	$reason = check_url_badness($url);
@@ -161,8 +160,7 @@ function add_bad_code_to_db($code) {
 	if (empty($url))
 		return false;
 
-	$reason = lookup_url_in_db($url);
-	if (!empty($reason))
+	if (lookup_url_is_spam($url))
 		return true;
 
 	$reason = check_url_badness($url);
@@ -183,6 +181,9 @@ function blacklist_code($code, $reason = 'unwanted') {
 	$url = get_url($code);
 	if (empty($url))
 		return false;
+
+	if (lookup_url_is_spam($url))
+		return true;
 
 	$ip = get_IP();
 	if (block_url($code, $url, $reason, $ip))

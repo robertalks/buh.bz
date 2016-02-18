@@ -187,14 +187,16 @@ function unblock_url($url) {
 	return $delete;
 }
 
-function lookup_url_in_db($url) {
+function lookup_url_is_spam($url) {
 	global $mydb;
 	$table = DB_SPAM_TABLE;
-	$result = null;
+	$result = 0;
 
-	$result = $mydb->get_var("SELECT `reason` FROM `$table` WHERE `url` = '" . $url . "' LIMIT 1;");
+	$result = intval($mydb->get_var("SELECT COUNT(url) FROM `$table` WHERE `url` = '" . $url . "' LIMIT 1;"));
+	if ($result > 0)
+		return true;
 
-	return $result;
+	return false;
 }
 
 ?>

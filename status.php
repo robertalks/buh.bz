@@ -5,7 +5,7 @@ if (empty($_GET['alias']))
 	header('Location: '.SITE_URL);
 
 $code = escape(trim($_GET['alias']));
-if (preg_match("/^[a-zA-Z0-9]+$/", $code) && (code_exists($code)) {
+if (preg_match("/^[a-zA-Z0-9]+$/", $code) && (code_exists($code))) {
 	$url = get_url($code);
 	$clicks = get_clicks($code);
 	echo "Code: " .$code."<br/>";
