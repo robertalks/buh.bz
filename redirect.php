@@ -8,7 +8,7 @@ if (!empty($_GET['alias'])) {
 		if (empty($url))
 			goto out;
 
-		if (lookup_url_in_db($url))
+		if (lookup_url_is_spam($url))
 			goto out;
 
 		if (check4spam($url)) {
