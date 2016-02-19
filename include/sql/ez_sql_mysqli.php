@@ -185,7 +185,11 @@
 				$this->select($this->dbname, $this->encoding);
 			}
 
-			return $this->dbh->escape_string(stripslashes($str));
+			if ( get_magic_quotes_gpc() ) {
+				$str = stripslashes($str);
+                        }
+
+			return $this->dbh->escape_string($str);
 		}
 
 		/**********************************************************************
@@ -206,7 +210,7 @@
 		{
 
 			// This keeps the connection alive for very long running scripts
-			if ( $this->num_queries >= 500 )
+			if ( $this->count(false) >= 500 )
 			{
 				$this->disconnect();
 				$this->quick_connect($this->dbuser,$this->dbpassword,$this->dbname,$this->dbhost,$this->dbport,$this->encoding);
@@ -270,7 +274,7 @@
 			}
 
 			// Query was an insert, delete, update, replace
-			if ( preg_match("/^(insert|delete|update|replace|truncate|drop|create|alter|begin|commit|rollback|set|lock|unlock|call)/i",$query) )
+			if ( preg_match("/^(insert|delete|update|start|replace|truncate|drop|create|alter|begin|commit|rollback|set|lock|unlock|call)/i",$query) )
 			{
 				$is_insert = true;
 				$this->rows_affected = @$this->dbh->affected_rows;
