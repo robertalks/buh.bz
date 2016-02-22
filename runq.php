@@ -46,6 +46,8 @@ function do_delete($code) {
 		echo "Code has been deleted.";
 }
 
+require_once('include/load.php');
+
 if (isset($_POST['alias'])) {
 	if (!empty($_POST['alias']))
 		$code = escape(trim($_POST['alias']));
