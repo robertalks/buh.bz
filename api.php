@@ -18,18 +18,20 @@ if (isset($_POST['url'])) {
 	$request_type = isset($urlArray['out']) ? $urlArray['out'] : 'api';
 }
 
-if (isset($urlArray['url']))
+if (isset($urlArray['url']) && !empty($urlArray['url']))
 	$url = $urlArray['url'];
 
-if (isset($urlArray['alias']))
+if (isset($urlArray['alias']) && !empty($urlArray['alias']))
 	$code = escape(trim($urlArray['alias']));
 
-foreach ($urlArray as $index => $value) {
-	if ($index == "url" || $index == "alias")
-		continue;
+if (!empty($urlArray)) {
+	foreach ($urlArray as $index => $value) {
+		if ($index == "url" || $index == "alias")
+			continue;
 
-	if ($value)
-		$url.= "&".$index."=".$value;
+		if ($value)
+			$url.= "&".$index."=".$value;
+	}
 }
 
 $entered_url = rtrim($url);
@@ -93,7 +95,6 @@ switch ($request_type) {
 	case 'mobile':
 	case 'noscript':
 		$redirect = $redirect.'?rc='.$error.'&url='.$entered_url.'&alias='.$entered_alias;
-		$redirect = rtrim($redirect);
 		if ($error == 0)
 			header('Location: '.$redirect.'&code='.$code);
 		else
