@@ -6,7 +6,7 @@ $code = null;
 function display_status($code) {
 	$url = get_url($code);
 	$clicks = get_clicks($code);
-	echo "Code: " .$code."<br/>";
+	echo "Code: <a href=".SITE_URL."/".$code." target=_blank>".$code."</a><br/>";
 	echo "Clicks: " .$clicks."<br/>";
 	echo "URL: <a href=".$url." target=_blank>".$url."</a><br/>";
 	if (lookup_url_is_spam($url))
