@@ -64,12 +64,7 @@ if (isset($_POST['q'])) {
 		$q = escape(trim($_GET['q']));
 }
 
-if (!code_exists($code)) {
-	$quit = 1;
-	goto out;
-}
-
-if (preg_match("/^[a-zA-Z0-9]+$/", $code)) {
+if (preg_match("/^[a-zA-Z0-9]+$/", $code) && code_exists($code)) {
 	if ($q == 'status')
 		display_status($code);
 	elseif ($q == 'blacklist')
@@ -78,6 +73,9 @@ if (preg_match("/^[a-zA-Z0-9]+$/", $code)) {
 		do_delete($code);
 	else
 		$quit = 0;
+} else {
+	$quit = 1;
+	goto out;
 }
 
 out:
