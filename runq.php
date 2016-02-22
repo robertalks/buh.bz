@@ -8,7 +8,7 @@ function display_status($code) {
 	$clicks = get_clicks($code);
 	echo "Code: " .$code."<br/>";
 	echo "Clicks: " .$clicks."<br/>";
-	echo "URL: " .$url."<br/>";
+	echo "URL: <a href=".$url." target=_blank>".$url."</a><br/>";
 	if (lookup_url_is_spam($url))
 		echo "SPAM: yes<br/>";
 	else
