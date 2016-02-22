@@ -1,6 +1,4 @@
 <?php
-require_once('include/load.php');
-
 $quit = 2;
 $q = 'redirect';
 $code = null;
@@ -63,6 +61,8 @@ if (isset($_POST['q'])) {
 	if (!empty($_GET['q']))
 		$q = escape(trim($_GET['q']));
 }
+
+require_once('include/load.php');
 
 if (preg_match("/^[a-zA-Z0-9]+$/", $code) && code_exists($code)) {
 	if ($q == 'status')
