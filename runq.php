@@ -2,10 +2,10 @@
 
 $noredirect = 2;
 $query = 'redirect';
-$output = '';
+$output = 'none';
 $code = null;
 
-function display_status($code) {
+function do_status($code, $output = 'none') {
 	$url = get_url($code);
 	$clicks = get_clicks($code);
 	$spam = lookup_url_is_spam($url);
@@ -22,7 +22,7 @@ function display_status($code) {
 	}
 }
 
-function do_redirect($code, $noredirect) {
+function do_redirect($code, $noredirect = 0) {
 	if ($noredirect)
 		return;
 
@@ -74,7 +74,7 @@ if (preg_match("/^[a-zA-Z0-9]+$/", $code) && code_exists($code)) {
 	if ($query == 'redirect' || empty($query))
 		$noredirect = 0;
 	if ($query == 'status')
-		display_status($code);
+		do_status($code, $output);
 	if ($query == 'blacklist')
 		do_blacklist($code);
 } else
