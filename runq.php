@@ -1,5 +1,6 @@
 <?php
-$quit = 2;
+
+$noredirect = 2;
 $q = 'redirect';
 $code = null;
 
@@ -15,8 +16,8 @@ function display_status($code) {
 	echo "SPAM: ".$spam_text."<br/>";
 }
 
-function do_redirect($code, $quit) {
-	if ($quit)
+function do_redirect($code, $noredirect) {
+	if ($noredirect)
 		return;
 
 	$url = get_url($code);
@@ -33,7 +34,7 @@ function do_redirect($code, $quit) {
 
 	increase_clicks($code);
 	header('Location: '.$url, true, 301);
-	exit;
+	exit(0);
 }
 
 function do_blacklist($code) {
@@ -64,24 +65,18 @@ if (isset($_POST['q'])) {
 		$q = escape(trim($_GET['q']));
 }
 
-require_once('include/load.php');
-
 if (preg_match("/^[a-zA-Z0-9]+$/", $code) && code_exists($code)) {
-	if ($q == 'status')
+	if (strpos($q, 'status')
 		display_status($code);
-	elseif ($q == 'blacklist')
+	if (strpos($q, 'blacklist')
 		do_blacklist($code);
-	elseif ($q == 'delete')
-		do_delete($code);
-	else
-		$quit = 0;
-} else {
-	$quit = 1;
-	goto out;
-}
+	if (strpos($q, 'redirect') || empty($q))
+		$noredirect = 0;
+} else
+	$noredirect = 1;
 
 out:
-	do_redirect($code, $quit);
+	do_redirect($code, $noredirect);
 
-	if ($quit < 2)
+	if ($noredirect < 2)
 		header('Location: '.SITE_URL);
