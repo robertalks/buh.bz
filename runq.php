@@ -11,6 +11,7 @@ function do_status($code, $output = 'none') {
 	$spam = lookup_url_is_spam($url);
 	$spam == false ? $spam_text = 'no' : $spam_text = 'yes';
 
+	header('Content-type: text/html; charset=utf-8');
 	if ($output == 'json') {
 		$json_output = array('code' => $code, 'url' => $url, 'clicks' => $clicks, 'spam' => $spam_text);
 		echo json_encode($json_output, JSON_NUMERIC_CHECK | JSON_UNESCAPED_SLASHES);

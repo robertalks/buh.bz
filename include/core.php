@@ -25,41 +25,61 @@ function verify_url($url) {
 }
 
 function process_url($url) {
+	global $http_status;
 	$response = null;
 
-	if (empty($url))
+	if (empty($url)) {
+		$http_status = 400;
 		return ERR_INVALID_REQUEST;
-
-	$url_protocol = @parse_url($url, PHP_URL_SCHEME);
-	if (!preg_match('/^('.ALLOWED_PROTOCOLS.')$/i', $url_protocol))
-		return ERR_PROTOCOL_NOT_ALLOWED;
-
-	$url_host = @parse_url($url, PHP_URL_HOST);
-	if (preg_match('/^('.NOT_ALLOWED_HOSTS.')$/i', $url_host))
-		return ERR_DOMAIN_NOT_ALLOWED;
-
-	if (preg_match('/^([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}$/', $url_host)) {
-		if (!is_allowed_ipv4($url_host))
-			return ERR_IP_NOT_PUBLIC;
-
-		if (gethostbyaddr($url_host) == $url_host)
-			return ERR_IP_NOT_RESOLVED;
 	}
 
-	if (!checkdnsrr($url_host.'.', 'ANY'))
+	$url_protocol = @parse_url($url, PHP_URL_SCHEME);
+	if (!preg_match('/^('.ALLOWED_PROTOCOLS.')$/i', $url_protocol)) {
+		$http_status = 403;
+		return ERR_PROTOCOL_NOT_ALLOWED;
+	}
+
+	$url_host = @parse_url($url, PHP_URL_HOST);
+	if (preg_match('/^('.NOT_ALLOWED_HOSTS.')$/i', $url_host)) {
+		$http_status = 403;
+		return ERR_DOMAIN_NOT_ALLOWED;
+	}
+
+	if (preg_match('/^([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}$/', $url_host)) {
+		if (!is_allowed_ipv4($url_host)) {
+			$http_status = 403;
+			return ERR_IP_NOT_PUBLIC;
+		}
+
+		if (gethostbyaddr($url_host) == $url_host) {
+			$http_status = 404;
+			return ERR_IP_NOT_RESOLVED;
+		}
+	}
+
+	if (!checkdnsrr($url_host.'.', 'ANY')) {
+		$http_status = 404;
 		return ERR_HOST_NOT_RESOLVED;
+	}
 
 	$response = verify_url($url);
 	if ($response != null) {
-		if ($response == 404)
+		if ($response == 404) {
+			$http_status = 404;
 			return ERR_HOST_NOT_RESOLVED;
-	} else
+		}
+	} else {
+		$http_status = 400;
 		return ERR_INVALID_REQUEST;
+	}
 	
-	if (lookup_url_is_spam($url))
+	if (lookup_url_is_spam($url)) {
+		$http_status = 403;
 		return ERR_URL_IS_SPAM;
+	}
 
 	if (check4spam($url)) {
+		$http_status = 403;
 		add_bad_url_to_db($url);
 		return ERR_URL_IS_SPAM;
 	}

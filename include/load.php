@@ -8,6 +8,7 @@ require_once(CONFIGFILE);
 date_default_timezone_set('UTC');
 
 global $mydb;
+global $http_status = 200;
 
 require_once('errors.php');
 require_once('utils.php');
