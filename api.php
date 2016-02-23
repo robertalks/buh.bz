@@ -35,7 +35,7 @@ if (isset($urlArray['format']) && !empty($urlArray['format'])) {
 
 if (!empty($urlArray)) {
 	foreach ($urlArray as $index => $value) {
-		if ($index == "url" || $index == "alias")
+		if ($index == "url" || $index == "alias" || $index == 'format')
 			continue;
 
 		if ($value)
@@ -102,7 +102,7 @@ switch ($request_type) {
 	case 'api':
 		header('Content-type: text/html; charset=utf-8');
 		if ($format == 'json') {
-			$json_output = array('status' => $status, 'code' => $code, 'url' => $url);
+			$json_output = array('status' => $http_status, 'code' => $code, 'url' => $url);
 			echo json_encode($json_output, JSON_NUMERIC_CHECK | JSON_UNESCAPED_SLASHES);
 		} elseif ($error == 0)
 			echo SITE_URL.'/'.$code;
