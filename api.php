@@ -28,7 +28,7 @@ if (isset($urlArray['alias']) && !empty($urlArray['alias']))
 	$code = escape(trim($urlArray['alias']));
 
 if (isset($urlArray['format']) && !empty($urlArray['format'])) {
-	$format = escape(trim($urlArray['format']);
+	$format = escape(trim($urlArray['format']));
 	if ($format == 'json')
 		$request_type = 'api';
 }
@@ -43,6 +43,7 @@ if (!empty($urlArray)) {
 	}
 }
 
+$http_status = 200;
 $entered_url = rtrim($url);
 $entered_alias = rtrim($code);
 
@@ -101,7 +102,7 @@ switch ($request_type) {
 	case 'api':
 		header('Content-type: text/html; charset=utf-8');
 		if ($format == 'json') {
-			$json_output = arrary('status' => $status, 'code' => $code, 'url' => $url);
+			$json_output = array('status' => $status, 'code' => $code, 'url' => $url);
 			echo json_encode($json_output, JSON_NUMERIC_CHECK | JSON_UNESCAPED_SLASHES);
 		} elseif ($error == 0)
 			echo SITE_URL.'/'.$code;
