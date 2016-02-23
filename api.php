@@ -99,12 +99,14 @@ switch ($request_type) {
 			echo $errors[$error];
 		break;
 	case 'api':
-		header('Content-type: text/html; charset=utf-8');
 		if ($format == 'json') {
+			header('Content-Type: application/json');
 			$json_output = array('status' => $http_status, 'code' => $code, 'url' => $url);
 			echo json_encode($json_output, JSON_NUMERIC_CHECK | JSON_UNESCAPED_SLASHES);
-		} elseif ($error == 0)
+		} elseif ($error == 0) {
+			header('Content-type: text/html; charset=utf-8');
 			echo SITE_URL.'/'.$code;
+		}
 		break;
 	case 'mobile':
 	case 'noscript':
