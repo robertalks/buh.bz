@@ -1,7 +1,8 @@
 <?php
 
 $noredirect = 2;
-$q = 'redirect';
+$query = 'redirect';
+$output = '';
 $code = null;
 
 function display_status($code) {
@@ -10,10 +11,15 @@ function display_status($code) {
 	$spam = lookup_url_is_spam($url);
 	$spam == false ? $spam_text = 'no' : $spam_text = 'yes';
 
-	echo "Code: <a href=".SITE_URL."/".$code." target=_blank>".$code."</a><br/>";
-	echo "Clicks: " .$clicks."<br/>";
-	echo "URL: <a href=".$url." target=_blank>".$url."</a><br/>";
-	echo "SPAM: ".$spam_text."<br/>";
+	if ($output == 'json') {
+		$json_output = array('code' => $code, 'url' => $url, 'clicks' => $clicks, 'spam' => $spam_text);
+		echo json_encode($json_output, JSON_NUMERIC_CHECK | JSON_UNESCAPED_SLASHES);
+	} else {
+		echo "Code: <a href=".SITE_URL."/".$code." target=_blank>".$code."</a><br/>";
+		echo "Clicks: " .$clicks."<br/>";
+		echo "URL: <a href=".$url." target=_blank>".$url."</a><br/>";
+		echo "SPAM: ".$spam_text."<br/>";
+	}
 }
 
 function do_redirect($code, $noredirect) {
@@ -49,29 +55,28 @@ function do_delete($code) {
 
 require_once('include/load.php');
 
-if (isset($_POST['alias'])) {
-	if (!empty($_POST['alias']))
-		$code = escape(trim($_POST['alias']));
-} elseif (isset($_GET['alias'])) {
+if (isset($_GET['alias'])) {
 	if (!empty($_GET['alias']))
 		$code = escape(trim($_GET['alias']));
 }
  
-if (isset($_POST['q'])) {
-	if (!empty($_POST['q']))
-		$q = escape(trim($_POST['q']));
-} elseif (isset($_GET['q'])) {
+if (isset($_GET['q'])) {
 	if (!empty($_GET['q']))
-		$q = escape(trim($_GET['q']));
+		$query = escape(trim($_GET['q']));
+}
+
+if (isset($_GET['j'])) {
+	if (!empty($_GET['j']))
+		$output = escape(trim($_GET['j']));
 }
 
 if (preg_match("/^[a-zA-Z0-9]+$/", $code) && code_exists($code)) {
-	if ($q == 'status')
-		display_status($code);
-	if ($q == 'blacklist')
-		do_blacklist($code);
-	if ($q == 'redirect' || empty($q))
+	if ($query == 'redirect' || empty($query))
 		$noredirect = 0;
+	if ($query == 'status')
+		display_status($code);
+	if ($query == 'blacklist')
+		do_blacklist($code);
 } else
 	$noredirect = 1;
 
