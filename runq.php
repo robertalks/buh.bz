@@ -66,11 +66,11 @@ if (isset($_POST['q'])) {
 }
 
 if (preg_match("/^[a-zA-Z0-9]+$/", $code) && code_exists($code)) {
-	if (strpos($q, 'status'))
+	if ($q == 'status')
 		display_status($code);
-	if (strpos($q, 'blacklist'))
+	if ($q == 'blacklist')
 		do_blacklist($code);
-	if (strpos($q, 'redirect') || empty($q))
+	if ($q == 'redirect' || empty($q))
 		$noredirect = 0;
 } else
 	$noredirect = 1;
