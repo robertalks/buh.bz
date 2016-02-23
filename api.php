@@ -29,13 +29,12 @@ if (isset($urlArray['alias']) && !empty($urlArray['alias']))
 
 if (isset($urlArray['format']) && !empty($urlArray['format'])) {
 	$format = escape(trim($urlArray['format']));
-	if ($format == 'json')
-		$request_type = 'api';
+	$format == 'json' ? $request_type = 'api' : $format = 'text';
 }
 
 if (!empty($urlArray)) {
 	foreach ($urlArray as $index => $value) {
-		if ($index == "url" || $index == "alias" || $index == 'format')
+		if ($index == 'url' || $index == 'alias' || $index == 'format')
 			continue;
 
 		if ($value)
