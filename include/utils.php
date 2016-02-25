@@ -1,19 +1,24 @@
 <?php
 
 function escape($str) {
-	$str = str_replace('"', '\\x22', $str);
-	$str = str_replace('&', '\\x26', $str);
-	$str = str_replace("'", '\\x27', $str);
-	$str = str_replace(" ", "+", $str);
-	$str = preg_replace("/[\r\n]/",'',$str);
+	if (empty($str))
+		return null;
+
+	$_str = trim($str);
+	$_str = str_replace('"', '\\x22', $_str);
+	$_str = str_replace('&', '\\x26', $_str);
+	$_str = str_replace("'", '\\x27', $_str);
+	$_str = str_replace(" ", "+", $_str);
+	$_str = preg_replace("/[\r\n]/",'',$_str);
+
+	return $_str;
 }
 
 function polish_url($url) {
 	if (empty($url))
 		return null;
 
-	$URL = trim($url);
-	$URL = escape($URL);
+	$URL = escape($url);
 	$URL = addslashes($URL);
 
 	return $URL;

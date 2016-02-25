@@ -59,17 +59,17 @@ require_once('include/load.php');
 
 if (isset($_GET['alias'])) {
 	if (!empty($_GET['alias']))
-		$code = escape(trim($_GET['alias']));
+		$code = escape($_GET['alias']);
 }
  
 if (isset($_GET['q'])) {
 	if (!empty($_GET['q']))
-		$query = escape(trim($_GET['q']));
+		$query = escape($_GET['q']);
 }
 
 if (isset($_GET['j'])) {
 	if (!empty($_GET['j']))
-		$output = escape(trim($_GET['j']));
+		$output = escape($_GET['j']);
 }
 
 if (preg_match("/^[a-zA-Z0-9]+$/", $code) && code_exists($code)) {

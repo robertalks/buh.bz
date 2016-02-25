@@ -23,10 +23,10 @@ if (isset($urlArray['url']) && !empty($urlArray['url']))
 	$url = $urlArray['url'];
 
 if (isset($urlArray['alias']) && !empty($urlArray['alias']))
-	$code = escape(trim($urlArray['alias']));
+	$code = escape($urlArray['alias']);
 
 if (isset($urlArray['format']) && !empty($urlArray['format'])) {
-	$format = escape(trim($urlArray['format']));
+	$format = escape($urlArray['format']);
 	$format == 'json' ? $request_type = 'api' : $format = 'text';
 }
 
@@ -40,8 +40,8 @@ if (!empty($urlArray)) {
 	}
 }
 
-$entered_url = escape(trim($url));
-$entered_alias = escape(trim($code));
+$entered_url = escape($url);
+$entered_alias = escape($code);
 
 if (empty($url)) {
         $error = ERR_INVALID_REQUEST;
