@@ -10,8 +10,6 @@ $request_type = '';
 $error = 0;
 $redirect = SITE_URL.'/index.php';
 
-global $http_status;
-
 $urlArray = array();
 if (isset($_POST['url'])) {
 	$urlArray = $_POST;
@@ -42,12 +40,10 @@ if (!empty($urlArray)) {
 	}
 }
 
-$http_status = 200;
-$entered_url = rtrim($url);
-$entered_alias = rtrim($code);
+$entered_url = escape(trim($url));
+$entered_alias = escape(trim($code));
 
 if (empty($url)) {
-	$http_status = 400;
         $error = ERR_INVALID_REQUEST;
         goto out;
 }
@@ -80,7 +76,6 @@ if (strlen($code) == 0) {
 	}
 
 	if (code_exists($code)) {
-		$http_status = 400;
 		$error = ERR_ALIAS_ALREADY_EXISTS;
 		goto out;
 	}
@@ -101,7 +96,7 @@ switch ($request_type) {
 	case 'api':
 		if ($format == 'json') {
 			header('Content-Type: application/json');
-			$json_output = array('status' => $http_status, 'code' => $code, 'url' => $url);
+			$json_output = array('status' => $error, 'code' => $code, 'url' => $url);
 			echo json_encode($json_output, JSON_NUMERIC_CHECK | JSON_UNESCAPED_SLASHES);
 		} elseif ($error == 0) {
 			header('Content-type: text/html; charset=utf-8');

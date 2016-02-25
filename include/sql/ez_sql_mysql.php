@@ -174,7 +174,11 @@
 				$this->select($this->dbname, $this->encoding);
 			}
 
-			return mysql_real_escape_string(stripslashes($str));
+			if ( get_magic_quotes_gpc() ) {
+				$str = stripslashes($str);
+			}
+
+			return mysql_real_escape_string($str);
 		}
 
 		/**********************************************************************

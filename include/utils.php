@@ -1,11 +1,11 @@
 <?php
 
 function escape($str) {
-	return str_replace('"', '\\x22', $str);
-}
-
-function str_encode($str) {
-	return str_replace('&', '\\x26', $str);
+	$str = str_replace('"', '\\x22', $str);
+	$str = str_replace('&', '\\x26', $str);
+	$str = str_replace("'", '\\x27', $str);
+	$str = str_replace(" ", "+", $str);
+	$str = preg_replace("/[\r\n]/",'',$str);
 }
 
 function polish_url($url) {
@@ -13,11 +13,7 @@ function polish_url($url) {
 		return null;
 
 	$URL = trim($url);
-	$URL = rtrim($URL);
-	$URL = str_replace('"', '\\x22', $URL);
-	$URL = str_replace('&', '\\x26', $URL);
-	$URL = str_replace("'", '\\x27', $URL);
-	$URL = str_replace(" ", "+", $URL);
+	$URL = escape($URL);
 	$URL = addslashes($URL);
 
 	return $URL;
