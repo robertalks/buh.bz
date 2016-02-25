@@ -1,4 +1,5 @@
 <?php
+define('DEFAULT_IP_ADDR', '0.0.0.0');
 
 function escape($str) {
 	if (empty($str))
@@ -82,34 +83,23 @@ function int2code($id, $make_rand = false) {
 }
 
 function get_IP() {
-	$ip = "0.0.0.0";
-
 	if (isset($_SERVER)) {
-		if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
-			$ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
-			goto out;
-		} elseif (isset($_SERVER["HTTP_CLIENT_IP"])) {
-			$ip = $_SERVER["HTTP_CLIENT_IP"];
-			goto out;
-		} elseif (isset($_SERVER["REMOTE_ADDR"])) {
-			$ip = $_SERVER["REMOTE_ADDR"];
-			goto out;
-		}
+		if (isset($_SERVER["HTTP_X_FORWARDED_FOR"]))
+			return $_SERVER["HTTP_X_FORWARDED_FOR"];
+		elseif (isset($_SERVER["HTTP_CLIENT_IP"]))
+			return $_SERVER["HTTP_CLIENT_IP"];
+		elseif (isset($_SERVER["REMOTE_ADDR"]))
+			return $_SERVER["REMOTE_ADDR"];
 	}
 
-	if (getenv('HTTP_X_FORWARDED_FOR')) {
-        	$ip = getenv('HTTP_X_FORWARDED_FOR');
-		goto out; 
-	} elseif (getenv('HTTP_CLIENT_IP')) {
-		$ip = getenv('HTTP_CLIENT_IP');
-		goto out;
-	} elseif (getenv('REMOTE_ADDR')) {
-		$ip = getenv('REMOTE_ADDR');
-		goto out;
-	}
+	if (getenv('HTTP_X_FORWARDED_FOR'))
+		return getenv('HTTP_X_FORWARDED_FOR');
+	elseif (getenv('HTTP_CLIENT_IP'))
+		return getenv('HTTP_CLIENT_IP');
+	elseif (getenv('REMOTE_ADDR'))
+		return getenv('REMOTE_ADDR');
 
-out:
-	return $ip;
+	return DEFAULT_IP_ADDR;
 }
 
 function is_allowed_ipv4($ip) {
