@@ -20,7 +20,8 @@ function polish_url($url) {
 		return null;
 
 	$URL = escape($url);
-	$URL = addslashes($URL);
+	if (!get_magic_quotes_gpc())
+		$URL = addslashes($URL);
 
 	return $URL;
 }
