@@ -4,6 +4,7 @@ require_once('include/load.php');
 $url = '';
 $code = '';
 $request_type = '';
+$format = 'text';
 $error = 0;
 $redirect = SITE_URL.'/index.php';
 
