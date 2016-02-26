@@ -3,7 +3,6 @@ require_once('include/load.php');
 
 $url = '';
 $code = '';
-$format = '';
 $request_type = '';
 $error = 0;
 $redirect = SITE_URL.'/index.php';
