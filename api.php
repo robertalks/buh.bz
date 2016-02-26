@@ -2,9 +2,7 @@
 require_once('include/load.php');
 
 $url = '';
-$entered_url = '';
 $code = '';
-$entered_alias = '';
 $format = '';
 $request_type = '';
 $error = 0;
@@ -40,8 +38,8 @@ if (!empty($urlArray)) {
 	}
 }
 
-$entered_url = escape($url);
-$entered_alias = escape($code);
+empty($url) == true ? $entered_url = '' : $entered_url = escape($url);
+empty($code) == true ? $entered_alias = '' : $entered_alias = escape($code);
 
 if (empty($url)) {
         $error = ERR_INVALID_REQUEST;
