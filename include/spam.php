@@ -105,7 +105,7 @@ function check4spam($url) {
 }
 
 function check_url_badness($url) {
-	$reason = null;
+	$reason = '';
 
 	if (check_with_phishtank($url))
 		$reason = 'phishing';
@@ -122,9 +122,9 @@ function check_url_badness($url) {
 }
 
 function add_bad_url_to_db($url) {
-	$reason = null;
-	$ip = null;
-	$codes = null;
+	$reason = '';
+	$ip = '';
+	$codes = '';
 	$code = 'none';
 
 	if (empty($url))
@@ -149,9 +149,9 @@ function add_bad_url_to_db($url) {
 }
 
 function add_bad_code_to_db($code) {
-	$reason = null;
-	$ip = null;
-	$url = null;
+	$reason = '';
+	$ip = '';
+	$url = '';
 
 	if (empty($code))
 		return false;

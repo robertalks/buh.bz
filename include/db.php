@@ -173,6 +173,10 @@ function block_url($code, $url, $reason, $ip) {
 	$result = false;
 
 	$result = $mydb->query("INSERT INTO `$table` (code, url, reason, ip, date) VALUES ('$code', '$url', '$reason', '$ip', NOW())");
+	if (code_exists($code)) {
+		if (strcmp($url, get_url($code)) == 0)
+			delete_code($code);
+	}
 
 	return $result;
 }

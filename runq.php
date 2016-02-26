@@ -3,7 +3,7 @@
 $noredirect = 2;
 $query = 'redirect';
 $output = 'none';
-$code = null;
+$code = '';
 
 function do_status($code, $output = 'none') {
 	$url = get_url($code);
