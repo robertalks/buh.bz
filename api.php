@@ -23,10 +23,8 @@ if (isset($urlArray['url']) && !empty($urlArray['url']))
 if (isset($urlArray['alias']) && !empty($urlArray['alias']))
 	$code = escape($urlArray['alias']);
 
-if (isset($urlArray['format']) && !empty($urlArray['format'])) {
+if (isset($urlArray['format']) && !empty($urlArray['format']))
 	$format = escape($urlArray['format']);
-	$format == 'json' ? $request_type = 'api' : $format = 'text';
-}
 
 if (!empty($urlArray)) {
 	foreach ($urlArray as $index => $value) {
@@ -45,6 +43,8 @@ if (empty($url)) {
         $error = ERR_INVALID_REQUEST;
         goto out;
 }
+
+$format == 'json' ? $request_type = 'api' : $format = 'text'; 
 
 $url = polish_url($url);
 $protocol = @parse_url($url, PHP_URL_SCHEME);
