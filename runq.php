@@ -41,6 +41,8 @@ function do_redirect($code, $noredirect = 0) {
 	}
 
 	increase_clicks($code);
+	header("Cache-Control: no-store, no-cache, must-revalidate");
+	header("Pragma: no-cache");
 	header('Location: '.$url, true, 301);
 	exit(0);
 }
