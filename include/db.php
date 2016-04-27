@@ -172,11 +172,15 @@ function block_url($code, $url, $reason, $ip) {
 	$table = DB_SPAM_TABLE;
 	$result = false;
 
-	$result = $mydb->query("INSERT INTO `$table` (code, url, reason, ip, date) VALUES ('$code', '$url', '$reason', '$ip', NOW())");
 	if (code_exists($code)) {
 		if (strcmp($url, get_url($code)) == 0)
 			delete_code($code);
 	}
+
+	if (code_spam_exists($code))
+		return true;
+
+	$result = $mydb->query("INSERT INTO `$table` (code, url, reason, ip, date) VALUES ('$code', '$url', '$reason', '$ip', NOW())");
 
 	return $result;
 }
@@ -189,6 +193,18 @@ function unblock_url($url) {
 	$delete = $mydb->query("DELETE FROM `$table` WHERE `url` = '" . $url . "';");
 
 	return $delete;
+}
+
+function code_spam_exists($code) {
+	global $mydb;
+	$table = DB_SPAM_TABLE;
+	$result = 0;
+
+	$result = intval($mydb->get_var("SELECT COUNT(clicks) FROM `$table` WHERE `code` = '" . $code . "' LIMIT 1;"));
+	if ($result > 0)
+		return true;
+
+	return false;
 }
 
 function lookup_url_is_spam($url) {

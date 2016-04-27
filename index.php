@@ -47,7 +47,7 @@ document.getElementById('alias').style.display = "none";
 </div></form></td><td class="border-right"></td></tr>
 <tr><td class="corner-bottomleft"></td><td class="border-bottom"></td><td class="corner-bottomright"></td></tr></table>
 <div id="stats"><br /><strong>Quick stats:</strong>
-<p>&nbsp;&nbsp;shortened <strong><?php echo code_count(); ?></strong> URLs with a total of <strong><?php echo prettify_numbers(clicks_count()); ?></strong> clicks until now... keep shorting and clicking!</p>
+<p>&nbsp;&nbsp;shortened <strong><?php echo code_count(); ?></strong> URLs with a total of <strong><?php echo prettify_numbers(clicks_count()); echo " "; echo "(".clicks_count().")"; ?></strong> clicks until now... keep shorting and clicking!</p>
 Top 5 visited links:<ol>
 <?php
 $top5 = top_clicks();

@@ -64,6 +64,10 @@ if (strlen($code) == 0) {
 	if (count($codes) == 0) {
 		$id = get_next_id();
 		$code = int2code($id, false);
+		if (code_spam_exists($code)) {
+			$id = mt_rand(get_next_id() + 1, 0xFFFFFF);
+			$code = int2code($id, false);
+		}
 		insert_url($code, $url, $ip, $uuid);
 	} else
 		$code = $codes{0}->code;
